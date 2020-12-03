@@ -2,32 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class spitController : MonoBehaviour
+public class tekiController : MonoBehaviour
 {
-    const float spitspeed = 0.5f;
-    float gravity = 0.05f;
+    const float tekispeed = 0.5f;
     Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        rb.velocity -= new Vector2(0, gravity);
+
     }
 
-    public void spit_initialize(float frame)
+    public void tekiinitialize()
     {
-        rb = this.GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(spitspeed * frame, 0);
-        gravity /= frame;
+        rb = GetComponent<Rigidbody2D>();
+        rb.velocity = new Vector2(-tekispeed, 0f);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        enemyManager.nowtekinum--;
         Destroy(this.gameObject);
     }
 }
