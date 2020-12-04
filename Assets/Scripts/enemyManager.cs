@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class enemyManager : MonoBehaviour
 {
-    private Camera _mainCamera;
-
     [SerializeField]
     GameObject tekiprefab = default;
 
@@ -13,7 +11,7 @@ public class enemyManager : MonoBehaviour
     const int tekinum = 5;
 
     int tekiframecount = 0;
-    const int tekiframethreshold = 60;
+    const int tekiframethreshold = 30;
 
     Vector3 bottomright;
     float screenheight;
@@ -21,11 +19,8 @@ public class enemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject obj = GameObject.Find("Main Camera");
-        _mainCamera = obj.GetComponent<Camera>();
-
-        bottomright = getScreenBottomRight();
-        screenheight = _mainCamera.ScreenToWorldPoint(new Vector3(0.0f, Screen.height, 0.0f)).y * 2;
+        bottomright = Utility.getScreenBottomRight();
+        screenheight = Utility.getScreenHeight();
     }
 
     // Update is called once per frame
@@ -45,13 +40,4 @@ public class enemyManager : MonoBehaviour
         tekiframecount++;
     }
 
-    private Vector3 getScreenBottomRight()
-    {
-        // 画面の右下を取得
-        Vector3 bottomRight = _mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
-        // 上下反転させる
-        bottomRight.Scale(new Vector3(1f, -1f, 1f));
-        bottomRight.z = 0f;
-        return bottomRight;
-    }
 }

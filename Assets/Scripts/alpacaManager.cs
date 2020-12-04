@@ -23,8 +23,11 @@ public class alpacaManager : MonoBehaviour
     float kubisizey;
     List<GameObject> kubis = new List<GameObject>();
 
-    float returnkeyframes = 0f;
-    const float returnkeythreshold = 15f;
+    float pushreturnkeyframes = 0f;
+
+    float spilframe = 0f;
+    float beforespilframe = 0f;
+    const float spilthreshold = 15f;
 
     private void Start()
     {
@@ -40,11 +43,14 @@ public class alpacaManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space)) //首伸ばす
         {
-            foreach(var kubi in kubis)
+            if (atama.transform.position.y <= Utility.getScreenHeight() / 2)
             {
-                kubi.transform.position += new Vector3(0, kubiupspeed);
+                foreach (var kubi in kubis)
+                {
+                    kubi.transform.position += new Vector3(0, kubiupspeed);
+                }
+                atama.transform.position += new Vector3(0, kubiupspeed);
             }
-            atama.transform.position += new Vector3(0, kubiupspeed);
         }
         else //首縮める
         {
@@ -76,9 +82,15 @@ public class alpacaManager : MonoBehaviour
         //弾発射
         if (Input.GetKeyUp(KeyCode.Return))
         {
-            GameObject obj = Instantiate(tamaprefab, atama.transform.position, Quaternion.identity);
-            obj.GetComponent<spitController>().spit_initialize(returnkeyframes);
-            returnkeyframes = 0f;
+            if (spilframe >= spilthreshold)
+            {
+                GameObject obj = Instantiate(tamaprefab, atama.transform.position, Quaternion.identity);
+                obj.GetComponent<spitController>().spit_initialize(pushreturnkeyframes);
+                pushreturnkeyframes = 0f;
+
+                beforespilframe = spilframe;
+                spilframe = 0f;
+            }
         }
     }
 
@@ -87,7 +99,10 @@ public class alpacaManager : MonoBehaviour
         //弾発射用のフレーム数計測
         if (Input.GetKey(KeyCode.Return))
         {
-            returnkeyframes++;
+            pushreturnkeyframes++;
         }
+
+        //発射間隔用のフレーム数
+        spilframe++;
     }
 }

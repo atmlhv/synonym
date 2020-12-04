@@ -4,19 +4,28 @@ using UnityEngine;
 
 public class tekiController : MonoBehaviour
 {
-    const float tekispeed = 0.5f;
+    const float tekispeed = 2f;
     Rigidbody2D rb;
+
+    //manager用
+    ScoreManager sm;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        sm = GameObject.Find("Manager").GetComponent<ScoreManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //画面外に出たら
+        if(transform.position.x <= -Utility.getScreenWidth()/2)
+        {
+            enemyManager.nowtekinum--;
+            sm.SubstractScore();
+            Destroy(this.gameObject);
+        }
     }
 
     public void tekiinitialize()
@@ -28,6 +37,10 @@ public class tekiController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         enemyManager.nowtekinum--;
+
+        //score用
+        sm.AddScore(transform.position);
+
         Destroy(this.gameObject);
     }
 }
