@@ -23,7 +23,7 @@ public class tekiController : MonoBehaviour
         if(transform.position.x <= -Utility.getScreenWidth()/2)
         {
             enemyManager.nowtekinum--;
-            sm.SubstractScore();
+            //sm.SubstractScore();
             Destroy(this.gameObject);
         }
     }
@@ -36,11 +36,23 @@ public class tekiController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        enemyManager.nowtekinum--;
-
-        //score用
-        sm.AddScore(transform.position);
-
-        Destroy(this.gameObject);
+        if (collision.gameObject.tag == "tama")
+        {
+            enemyManager.nowtekinum--;
+            sm.AddScore(transform.position);
+            Destroy(this.gameObject);
+        }
+        else if (!alpacaManager.isulting && collision.gameObject.tag == "kubi")
+        {
+            enemyManager.nowtekinum--;
+            sm.SubstractScore();
+            Destroy(this.gameObject);
+        }
+        else if (alpacaManager.isulting && collision.gameObject.tag == "kubi")
+        {
+            enemyManager.nowtekinum--;
+            sm.AddScore(transform.position);
+            Destroy(this.gameObject);
+        }
     }
 }

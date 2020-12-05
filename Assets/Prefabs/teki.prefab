@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -5105983932802221822}
   m_Layer: 8
   m_Name: teki
-  m_TagString: Untagged
+  m_TagString: teki
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

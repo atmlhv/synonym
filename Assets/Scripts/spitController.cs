@@ -28,6 +28,9 @@ public class spitController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(this.gameObject);
+        if (collision.gameObject.tag == "teki")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
