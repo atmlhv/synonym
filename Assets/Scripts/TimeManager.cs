@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
-    float seconds = 60f;
+    float seconds = 10f;
     float oldseconds = 0f;
-    const float timelimit = 60f;
+    const float timelimit = 10f;
+
+    public GameObject RetryButton;
+    public GameObject TitleButton;
 
     //仮
     [SerializeField]
@@ -36,7 +39,9 @@ public class TimeManager : MonoBehaviour
         //0秒になったら
         if((int)seconds <= 0) 
         {
-
+            Time.timeScale = 0;
+            RetryButton.SetActive(true);
+            TitleButton.SetActive(true);
         }
     }
 }
