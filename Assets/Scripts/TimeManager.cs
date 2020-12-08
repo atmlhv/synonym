@@ -5,18 +5,12 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
-<<<<<<< Updated upstream
-    float seconds = 60f;
-    float oldseconds = 0f;
-    const float timelimit = 60f;
-=======
     public static float seconds = 60f;
     float oldseconds = 0f;
     public const float timelimit = 60f;
 
     public GameObject RetryButton;
     public GameObject TitleButton;
->>>>>>> Stashed changes
 
     //仮
     [SerializeField]
