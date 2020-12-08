@@ -39,7 +39,9 @@ public class TimeManager : MonoBehaviour
         //0秒になったら
         if((int)seconds <= 0) 
         {
-
+            Time.timeScale = 0;
+            RetryButton.SetActive(true);
+            TitleButton.SetActive(true);
         }
     }
 }
