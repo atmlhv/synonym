@@ -34,7 +34,7 @@ public class ScoreManager : MonoBehaviour
 
     public void SubstractScore()
     {
-        score -= substractnum;
+        score = Mathf.Max(score - substractnum, 0);
         text.text = score.ToString();
     }
 }

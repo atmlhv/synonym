@@ -8,10 +8,16 @@ public class enemyManager : MonoBehaviour
     GameObject tekiprefab = default;
 
     public static int nowtekinum = 0;
-    const int tekinum = 5;
+    int tekinum = 5;
+
+    const int tekinummin = 5;
+    const int tekinummax = 10;
 
     int tekiframecount = 0;
-    const int tekiframethreshold = 30;
+    int tekiframethreshold = 50;
+
+    const int tekiframethresholdmin = 10;
+    const int tekiframethresholdmax = 40;
 
     Vector3 bottomright;
     float screenheight;
@@ -26,8 +32,11 @@ public class enemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(nowtekinum <= tekinum && tekiframecount > tekiframethreshold)
+        if(nowtekinum < tekinum && tekiframecount > tekiframethreshold)
         {
+            int t = 60 - (int)TimeManager.seconds;
+            tekiframethreshold = (int)(coefficient(tekiframethresholdmax, tekiframethresholdmin) * t * t) + tekiframethresholdmax;
+            tekinum = (int)(coefficient(tekinummax, tekinummin) * t * t) + tekinummax;
             nowtekinum++;
             tekiframecount = 0;
             GameObject teki = Instantiate(tekiprefab, bottomright + new Vector3(0f, UnityEngine.Random.Range(0, screenheight)), Quaternion.identity);
@@ -40,4 +49,8 @@ public class enemyManager : MonoBehaviour
         tekiframecount++;
     }
 
+    private float coefficient(int max, int min)
+    {
+        return (min - max) / 3600f;
+    }
 }

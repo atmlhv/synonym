@@ -21,6 +21,8 @@ public class spitController : MonoBehaviour
 
     public void spit_initialize(float frame)
     {
+        frame += 1f;
+        frame /= 2f;
         rb = this.GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(spitspeed * frame, 0);
         gravity /= frame;

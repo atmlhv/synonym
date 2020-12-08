@@ -90,7 +90,7 @@ public class alpacaManager : MonoBehaviour
             {
                 if (spilframe >= spilthreshold)
                 {
-                    GameObject obj = Instantiate(tamaprefab, atama.transform.position, Quaternion.identity);
+                    GameObject obj = Instantiate(tamaprefab, atama.transform.position+new Vector3(0.6f,-0.25f,0), Quaternion.identity);
                     obj.GetComponent<spitController>().spit_initialize(pushreturnkeyframes);
 
                     ultpoint = Mathf.Min(ultpoint + pushreturnkeyframes, ultthreshold);
@@ -160,7 +160,7 @@ public class alpacaManager : MonoBehaviour
         while (true)
         {
             //てっぺんから右に回す
-            if (theta >= 0)
+            if (theta >= -Mathf.PI / 12f)
             {
                 theta -= 0.004f;
                 Vector3 pos;

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class tekiController : MonoBehaviour
 {
-    const float tekispeed = 2f;
+    const float tekispeedmin = 1f;
+    const float tekispeedmax = 3f;
     Rigidbody2D rb;
 
     //manager用
@@ -31,7 +32,8 @@ public class tekiController : MonoBehaviour
     public void tekiinitialize()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(-tekispeed, 0f);
+        int t = 60 - (int)TimeManager.seconds;
+        rb.velocity = new Vector2(- ( t * ((tekispeedmax - tekispeedmin) / 60f) + tekispeedmin), 0f);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
