@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
-    public static float seconds = 60f;
-    float oldseconds = 0f;
+    public static float seconds;
+    float oldseconds;
     public const float timelimit = 60f;
 
     public GameObject RetryButton;
@@ -39,7 +39,7 @@ public class TimeManager : MonoBehaviour
         //0秒になったら
         if((int)seconds <= 0) 
         {
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
             RetryButton.SetActive(true);
             TitleButton.SetActive(true);
         }

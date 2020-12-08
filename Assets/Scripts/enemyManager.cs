@@ -7,14 +7,14 @@ public class enemyManager : MonoBehaviour
     [SerializeField]
     GameObject tekiprefab = default;
 
-    public static int nowtekinum = 0;
-    int tekinum = 5;
+    public static int nowtekinum;
+    int tekinum;
 
     const int tekinummin = 5;
     const int tekinummax = 10;
 
-    int tekiframecount = 0;
-    int tekiframethreshold = 50;
+    int tekiframecount;
+    int tekiframethreshold;
 
     const int tekiframethresholdmin = 10;
     const int tekiframethresholdmax = 40;
@@ -27,6 +27,11 @@ public class enemyManager : MonoBehaviour
     {
         bottomright = Utility.getScreenBottomRight();
         screenheight = Utility.getScreenHeight();
+
+        nowtekinum = 0;
+        tekinum = 5;
+        tekiframecount = 0;
+        tekiframethreshold = 50;
     }
 
     // Update is called once per frame

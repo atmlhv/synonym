@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    static int score = 0;
+    static int score;
     const int addnum = 100;
     const int substractnum = 1000;
     static float screenwidth;
@@ -18,6 +18,7 @@ public class ScoreManager : MonoBehaviour
     void Start()
     {
         screenwidth = Utility.getScreenWidth();
+        score = 0;
     }
 
     // Update is called once per frame

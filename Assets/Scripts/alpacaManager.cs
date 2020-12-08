@@ -19,22 +19,28 @@ public class alpacaManager : MonoBehaviour
     const float kubiupspeed = 0.01f;
     const float kubidownspeed = 0.01f;
 
-    int addkubinum = 0;
+    int addkubinum;
     float kubisizey;
     List<GameObject> kubis = new List<GameObject>();
 
-    float pushreturnkeyframes = 0f;
+    float pushreturnkeyframes;
 
-    float spilframe = 0f;
+    float spilframe;
     const float spilthreshold = 15f;
 
-    public static bool isulting = false;
+    public static bool isulting;
 
-    public static float ultpoint = 0f;
+    public static float ultpoint;
     public const float ultthreshold = 500f;
 
     private void Start()
     {
+        addkubinum = 0;
+        pushreturnkeyframes = 0f;
+        spilframe = 0f;
+        isulting = false;
+        ultpoint = 0f;
+
         defaultpos_atama = atama.transform.position;
         defaultpos_kubi = kubinearhead.transform.position;
 

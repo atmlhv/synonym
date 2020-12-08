@@ -5,12 +5,14 @@ using UnityEngine;
 public class spitController : MonoBehaviour
 {
     const float spitspeed = 0.5f;
-    float gravity = 0.05f;
+    float gravity;
+    const float gravitydefault = 0.05f;
     Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -25,6 +27,7 @@ public class spitController : MonoBehaviour
         frame /= 2f;
         rb = this.GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(spitspeed * frame, 0);
+        gravity = gravitydefault;
         gravity /= frame;
     }
 
