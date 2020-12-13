@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    static int score;
+    static public int score = 0;
     const int addnum = 100;
     const int substractnum = 1000;
     static float screenwidth;
@@ -38,4 +38,5 @@ public class ScoreManager : MonoBehaviour
         score = Mathf.Max(score - substractnum, 0);
         text.text = score.ToString();
     }
+
 }

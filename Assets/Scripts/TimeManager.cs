@@ -11,6 +11,7 @@ public class TimeManager : MonoBehaviour
 
     public GameObject RetryButton;
     public GameObject TitleButton;
+    public GameObject ResultButton;
 
     //仮
     [SerializeField]
@@ -42,6 +43,7 @@ public class TimeManager : MonoBehaviour
             //Time.timeScale = 0;
             RetryButton.SetActive(true);
             TitleButton.SetActive(true);
+            ResultButton.SetActive(true);
         }
     }
 }

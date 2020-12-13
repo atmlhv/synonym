@@ -4,22 +4,29 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
+
+
 public class Transition : MonoBehaviour
 {
 
-    public void PushGoToMainButton()
+    public void GoToMain()
     {
         SceneManager.LoadScene("Main");
     }
 
-    public void PushGoToInstructionButton()
+    public void GoToInstruction()
     {
         SceneManager.LoadScene("Instruction");
     }
 
 
-    public void PushGoToTitleButton()
+    public void GoToTitle()
     {
         SceneManager.LoadScene("Title");
+    }
+
+    public void GoToResult()
+    {
+        SceneManager.LoadScene("Result");
     }
 }
