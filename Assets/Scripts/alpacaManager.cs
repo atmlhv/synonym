@@ -24,6 +24,7 @@ public class alpacaManager : MonoBehaviour
     List<GameObject> kubis = new List<GameObject>();
 
     float pushreturnkeyframes;
+    const float pushreturnkeyframesthreshold = 60f;
 
     float spilframe;
     const float spilthreshold = 15f;
@@ -32,6 +33,39 @@ public class alpacaManager : MonoBehaviour
 
     public static float ultpoint;
     public const float ultthreshold = 500f;
+
+    //音
+    [SerializeField]
+    AudioSource audioSource;
+    [SerializeField]
+    AudioSource audioSource_kubi;
+
+    [SerializeField]
+    AudioClip ac_kubiextend;
+    [SerializeField]
+    AudioClip ac_kubishrink;
+    [SerializeField]
+    AudioClip ac_spil_weak;
+    [SerializeField]
+    AudioClip ac_spil_strong;
+    [SerializeField]
+    AudioClip ac_enemyspil;
+    [SerializeField]
+    AudioClip ac_enemytouch;
+    [SerializeField]
+    AudioClip ac_ult_doing;
+    [SerializeField]
+    AudioClip ac_ult_done;
+
+    //敵ヒット用
+    public void enemyspil_se()
+    {
+        audioSource.PlayOneShot(ac_enemyspil);
+    }
+    public void enemytouch_se()
+    {
+        audioSource.PlayOneShot(ac_enemytouch);
+    }
 
     private void Start()
     {
@@ -47,6 +81,8 @@ public class alpacaManager : MonoBehaviour
         kubis.Add(kubinearhead);
 
         kubisizey = kubiprefab.GetComponent<SpriteRenderer>().bounds.size.y;
+
+        audioSource = this.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -63,6 +99,10 @@ public class alpacaManager : MonoBehaviour
                     }
                     atama.transform.position += new Vector3(0, kubiupspeed);
                 }
+                if (!audioSource_kubi.isPlaying)
+                {
+                    audioSource_kubi.PlayOneShot(ac_kubiextend);
+                }
             }
             else //首縮める
             {
@@ -73,6 +113,10 @@ public class alpacaManager : MonoBehaviour
                         kubi.transform.position -= new Vector3(0, kubidownspeed);
                     }
                     atama.transform.position -= new Vector3(0, kubidownspeed);
+                    if (!audioSource_kubi.isPlaying)
+                    {
+                        audioSource_kubi.PlayOneShot(ac_kubishrink);
+                    }
                 }
             }
 
@@ -82,6 +126,7 @@ public class alpacaManager : MonoBehaviour
                 addkubinum--;
                 Destroy(kubis[kubis.Count - 1]);
                 kubis.RemoveAt(kubis.Count - 1);
+
             }
 
             //首増やす
@@ -98,6 +143,15 @@ public class alpacaManager : MonoBehaviour
                 {
                     GameObject obj = Instantiate(tamaprefab, atama.transform.position+new Vector3(0.6f,-0.25f,0), Quaternion.identity);
                     obj.GetComponent<spitController>().spit_initialize(pushreturnkeyframes);
+
+                    if (pushreturnkeyframes < pushreturnkeyframesthreshold)
+                    {
+                        audioSource.PlayOneShot(ac_spil_weak);
+                    }
+                    else
+                    {
+                        audioSource.PlayOneShot(ac_spil_strong);
+                    }
 
                     ultpoint = Mathf.Min(ultpoint + pushreturnkeyframes, ultthreshold);
 
@@ -136,6 +190,7 @@ public class alpacaManager : MonoBehaviour
 
     IEnumerator ult()
     {
+        audioSource.PlayOneShot(ac_kubiextend);
         while (true)
         {
             //てっぺんの倍まで伸ばす
@@ -162,6 +217,7 @@ public class alpacaManager : MonoBehaviour
             }
         }
 
+        audioSource.PlayOneShot(ac_ult_doing);
         float theta = Mathf.PI / 2f;
         while (true)
         {
@@ -184,6 +240,8 @@ public class alpacaManager : MonoBehaviour
             }
             else
             {
+                audioSource.PlayOneShot(ac_ult_done);
+
                 //色々元に戻す
                 addkubinum = 0;
 

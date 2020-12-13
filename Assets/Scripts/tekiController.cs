@@ -10,11 +10,13 @@ public class tekiController : MonoBehaviour
 
     //manager用
     ScoreManager sm;
+    alpacaManager am;
 
     // Start is called before the first frame update
     void Start()
     {
         sm = GameObject.Find("Manager").GetComponent<ScoreManager>();
+        am = GameObject.Find("Manager").GetComponent<alpacaManager>();
     }
 
     // Update is called once per frame
@@ -40,18 +42,21 @@ public class tekiController : MonoBehaviour
     {
         if (collision.gameObject.tag == "tama")
         {
+            am.enemyspil_se();
             enemyManager.nowtekinum--;
             sm.AddScore(transform.position);
             Destroy(this.gameObject);
         }
         else if (!alpacaManager.isulting && collision.gameObject.tag == "kubi")
         {
+            am.enemytouch_se();
             enemyManager.nowtekinum--;
             sm.SubstractScore();
             Destroy(this.gameObject);
         }
         else if (alpacaManager.isulting && collision.gameObject.tag == "kubi")
         {
+            am.enemytouch_se();
             enemyManager.nowtekinum--;
             sm.AddScore(transform.position);
             Destroy(this.gameObject);
