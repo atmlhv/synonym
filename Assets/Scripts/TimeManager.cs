@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class TimeManager : MonoBehaviour
 {
@@ -11,10 +13,16 @@ public class TimeManager : MonoBehaviour
 
     public GameObject RetryButton;
     public GameObject TitleButton;
+    public GameObject ResultButton;
+
+    public Fade fade;
+    public string ResultScene;
 
     //仮
     [SerializeField]
-    Text text = default;
+    private TextMeshProUGUI text;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +30,13 @@ public class TimeManager : MonoBehaviour
         //とりあえずここにタイマー
         seconds = timelimit;
         oldseconds = seconds;
+        fade.FadeOut(0.5f);
     }
 
     // Update is called once per frame
+
+    bool isCalledOnce = false;
+
     void Update()
     {
         //timer
@@ -42,6 +54,18 @@ public class TimeManager : MonoBehaviour
             //Time.timeScale = 0;
             RetryButton.SetActive(true);
             TitleButton.SetActive(true);
+            ResultButton.SetActive(true);
+            if (!isCalledOnce)
+            {
+                isCalledOnce = true;
+                
+                fade.FadeIn(0.5f, () =>
+                {
+                    SceneManager.LoadScene(ResultScene);
+                });
+                //Time.timeScale = 0;
+            }
         }
+
     }
 }
