@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class ScoreManager : MonoBehaviour
 
     //仮
     [SerializeField]
-    Text text = default;
+    private TextMeshProUGUI text;
 
     // Start is called before the first frame update
     void Start()

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 22424616}
   - component: {fileID: 22333946}
   - component: {fileID: 22291984}
-  - component: {fileID: 3891691215450225940}
   - component: {fileID: 11491604}
+  - component: {fileID: 3891691215450225940}
   - component: {fileID: 4947040854454451180}
   m_Layer: 5
   m_Name: FadeCanvas
@@ -69,23 +69,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141186}
   m_CullTransparentMesh: 0
---- !u!114 &3891691215450225940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 141186}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 448623d86f85950479f00cc5367d0ca9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: d9d88d72d65d92d409606deefe2646d6, type: 2}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 0
-  maskTexture: {fileID: 2800000, guid: 1fd76c85141eeba4ca962077bb9f1fa2, type: 3}
-  cutoutRange: 0
 --- !u!114 &11491604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,6 +82,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartFade: 0
+--- !u!114 &3891691215450225940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448623d86f85950479f00cc5367d0ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: d9d88d72d65d92d409606deefe2646d6, type: 2}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 0
+  maskTexture: {fileID: 2800000, guid: 1fd76c85141eeba4ca962077bb9f1fa2, type: 3}
+  StartFade: 1
 --- !u!114 &4947040854454451180
 MonoBehaviour:
   m_ObjectHideFlags: 0

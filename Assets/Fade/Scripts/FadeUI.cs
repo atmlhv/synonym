@@ -12,7 +12,7 @@ public class FadeUI : UnityEngine.UI.Graphic, IFade
 	private Texture maskTexture = null;
 
 	[SerializeField, Range(0, 1)]
-	private float cutoutRange;
+	private float cutoutRange = 1;
 
 	protected override void Start()
 	{

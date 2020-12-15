@@ -11,6 +11,7 @@ public class ResultManager : MonoBehaviour
     public GameObject ResultImage1;
     public GameObject ResultImage2;
     public GameObject ResultImage3;
+    public Fade fade;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class ResultManager : MonoBehaviour
         {
             ResultImage1.SetActive(true);
         }
+        fade.FadeOut(0.5f);
     }
 
     // Update is called once per frame

@@ -37,11 +37,12 @@ public class Fade : MonoBehaviour
 		if (StartFade == true)
 		{
 			cutoutRange = 1;
+			Debug.Log("Hello, world!");
 		}
 		fade.Range = cutoutRange;
 	}
 
-	float cutoutRange;
+	float cutoutRange = 1;
 
 	void Init ()
 	{

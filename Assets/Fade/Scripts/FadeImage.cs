@@ -28,7 +28,9 @@ public class FadeImage : UnityEngine.UI.Graphic , IFade
 {
 	public Texture maskTexture = null;
 
-	[Range(0, 1)]public float cutoutRange;
+	float cutoutRange = 1;
+
+	public bool StartFade;      //トランジション用変数
 
 	public float Range {
 		get {
@@ -43,6 +45,11 @@ public class FadeImage : UnityEngine.UI.Graphic , IFade
 	protected override void Start ()
 	{
 		base.Start ();
+		//シーン立ち上げ時にトランジションを掛けるか
+		if (StartFade == true)
+		{
+			cutoutRange = 1;
+		}
 		UpdateMaskTexture (maskTexture);
 	}
 
