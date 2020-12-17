@@ -7,6 +7,11 @@ public class GetKey : MonoBehaviour
 {
     public Fade fade;
     public string NextStage;
+    [SerializeField]
+    AudioSource audioSource;
+
+    [SerializeField]
+    AudioClip transition;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +24,7 @@ public class GetKey : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-
+            audioSource.PlayOneShot(transition);
             fade.FadeIn(0.5f, () =>
             {
                 SceneManager.LoadScene(NextStage);
