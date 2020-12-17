@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 public class ResultManager : MonoBehaviour
 {
@@ -14,6 +15,14 @@ public class ResultManager : MonoBehaviour
     public GameObject ResultImage2;
     public GameObject ResultImage3;
     public Fade fade;
+
+    [SerializeField]
+    AudioSource audioSource;
+
+    [SerializeField]
+    AudioClip Result1;
+    [SerializeField]
+    AudioClip Result2;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +43,12 @@ public class ResultManager : MonoBehaviour
         }
         fade.FadeOut(0.5f);
         //3秒かけてスコアを加算していく。
-        StartCoroutine(ScoreAnimation(0f,(float)ScoreManager.score, 3f));
+        StartCoroutine(ScoreAnimation(0f,(float)ScoreManager.score, 4f));
+        audioSource.PlayOneShot(Result1);
+        StartCoroutine(CheckAudio(audioSource, () => {
+            audioSource.PlayOneShot(Result2);
+            Debug.Log("END");
+        }));
 
     }
 
@@ -65,6 +79,20 @@ public class ResultManager : MonoBehaviour
         // 最終的な着地のスコア
         Score.text = string.Format("Score:{0}", (int)endScore);
     }
+
+    private IEnumerator CheckAudio(AudioSource audio, UnityAction callback)
+    {
+        while (true)
+        {
+            yield return new WaitForFixedUpdate();
+            if (!audio.isPlaying)
+            {
+                callback();
+                break;
+            }
+        }
+    }
+
 
 
     // Update is called once per frame
