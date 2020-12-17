@@ -944,7 +944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timelimit: 10
-  countdown: 3
+  countdown: 4
   DisplayStartTextTime: 2
   DisplayEndTextTime: 2
   fade: {fileID: 1227672052}
