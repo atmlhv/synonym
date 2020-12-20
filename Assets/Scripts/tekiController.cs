@@ -6,6 +6,9 @@ public class tekiController : MonoBehaviour
 {
     const float tekispeedmin = 1f;
     const float tekispeedmax = 3f;
+    float defaultposy;
+    float sincount;
+    bool island;
     Rigidbody2D rb;
 
     //manager用
@@ -29,13 +32,49 @@ public class tekiController : MonoBehaviour
             //sm.SubstractScore();
             Destroy(this.gameObject);
         }
+
+        if(TimeManager.seconds < 0)
+        {
+            this.GetComponent<BoxCollider2D>().enabled = false;
+        }
+
+        if (!island)
+        {
+            transform.position = new Vector2(transform.position.x, defaultposy + Mathf.Sin(sincount));
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        sincount += UnityEngine.Random.Range(0, 0.1f);
     }
 
     public void tekiinitialize()
     {
         rb = GetComponent<Rigidbody2D>();
         int t = 60 - (int)TimeManager.seconds;
-        rb.velocity = new Vector2(- ( t * ((tekispeedmax - tekispeedmin) / 60f) + tekispeedmin), 0f);
+        defaultposy = transform.position.y;
+        sincount = 0;
+        island = false;
+
+        //通常の速度調整
+        float velx = -(t * ((tekispeedmax - tekispeedmin) / 60f) + tekispeedmin);
+        velx = UnityEngine.Random.Range(velx * 0.5f, velx * 1.5f);
+        rb.velocity = new Vector2(velx , 0f);
+    }
+
+    public void tekilandinitialize()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        int t = 60 - (int)TimeManager.seconds;
+        defaultposy = transform.position.y;
+        sincount = 0;
+        island = true;
+
+        //通常の速度調整
+        float velx = -(t * ((tekispeedmax - tekispeedmin) / 60f) + tekispeedmin);
+        velx = UnityEngine.Random.Range(velx * 0.5f, velx * 1.5f);
+        rb.velocity = new Vector2(velx, 0f);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -45,6 +84,7 @@ public class tekiController : MonoBehaviour
             am.enemyspil_se();
             enemyManager.nowtekinum--;
             sm.AddScore(transform.position);
+            sm.Addenemyhitcount();
             Destroy(this.gameObject);
         }
         else if (!alpacaManager.isulting && collision.gameObject.tag == "kubi")
@@ -52,6 +92,7 @@ public class tekiController : MonoBehaviour
             am.enemytouch_se();
             enemyManager.nowtekinum--;
             sm.SubstractScore();
+            sm.Addalpacahitcount();
             Destroy(this.gameObject);
         }
         else if (alpacaManager.isulting && collision.gameObject.tag == "kubi")
@@ -59,6 +100,18 @@ public class tekiController : MonoBehaviour
             am.enemytouch_se();
             enemyManager.nowtekinum--;
             sm.AddScore(transform.position);
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "tama_big")
+        {
+            am.enemyspil_se();
+            enemyManager.nowtekinum--;
+            sm.AddScore(transform.position);
+            sm.Addenemyhitcount();
             Destroy(this.gameObject);
         }
     }

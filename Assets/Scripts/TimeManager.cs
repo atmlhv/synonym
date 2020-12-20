@@ -10,7 +10,7 @@ public class TimeManager : MonoBehaviour
     public static float seconds;
     float oldseconds;
     public float timelimit = 60f;
-    public float countdown = 3f;
+    public static float countdown = 3f;
     float oldcountdown;
     int count;
     public float DisplayStartTextTime = 2f;

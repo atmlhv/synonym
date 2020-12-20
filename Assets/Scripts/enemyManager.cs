@@ -25,13 +25,14 @@ public class enemyManager : MonoBehaviour
     const float tekilandposy = 0.5f;
 
     Vector3 bottomright;
-    float screenheight;
+    float screenheight, scorescreenheight;
 
     // Start is called before the first frame update
     void Start()
     {
         bottomright = Utility.getScreenBottomRight();
         screenheight = Utility.getScreenHeight();
+        scorescreenheight = screenheight - 1;
 
         nowtekinum = 0;
         tekinum = 5;
@@ -55,7 +56,7 @@ public class enemyManager : MonoBehaviour
             if (UnityEngine.Random.value >= tekilandrate)
             {
                 //飛ぶ敵
-                float tekiposy = Utility.getGaussianDistribution(screenheight / 8f, screenheight);
+                float tekiposy = Utility.getGaussianDistribution(screenheight / 8f, scorescreenheight);
                 GameObject teki = Instantiate(tekiprefab, bottomright + new Vector3(0f, tekiposy), Quaternion.identity);
                 teki.GetComponent<tekiController>().tekiinitialize();
             }
@@ -64,7 +65,7 @@ public class enemyManager : MonoBehaviour
                 //地上
                 float tekiposy = tekilandposy;
                 GameObject teki = Instantiate(tekilandprefab, bottomright + new Vector3(0f, tekiposy), Quaternion.identity);
-                teki.GetComponent<tekiController>().tekiinitialize();
+                teki.GetComponent<tekiController>().tekilandinitialize();
             }
         }
     }

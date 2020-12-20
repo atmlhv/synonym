@@ -12,6 +12,8 @@ public class alpacaManager : MonoBehaviour
     GameObject atama = default;
     [SerializeField]
     GameObject tamaprefab = default;
+    [SerializeField]
+    GameObject tamabigprefab = default;
 
     Vector3 defaultpos_atama;
     Vector3 defaultpos_kubi;
@@ -87,7 +89,7 @@ public class alpacaManager : MonoBehaviour
 
     private void Update()
     {
-        if (!isulting) //ult中は入力を受け付けない
+        if (!isulting && TimeManager.countdown < 1) //ult中は入力を受け付けない
         {
             if (Input.GetKey(KeyCode.Space)) //首伸ばす
             {
@@ -141,16 +143,17 @@ public class alpacaManager : MonoBehaviour
             {
                 if (spilframe >= spilthreshold)
                 {
-                    GameObject obj = Instantiate(tamaprefab, atama.transform.position+new Vector3(0.6f,-0.25f,0), Quaternion.identity);
-                    obj.GetComponent<spitController>().spit_initialize(pushreturnkeyframes);
-
                     if (pushreturnkeyframes < pushreturnkeyframesthreshold)
                     {
                         audioSource.PlayOneShot(ac_spil_weak);
+                        GameObject obj = Instantiate(tamaprefab, atama.transform.position + new Vector3(0.6f, -0.25f, 0), Quaternion.identity);
+                        obj.GetComponent<spitController>().spit_initialize(pushreturnkeyframes);
                     }
                     else
                     {
                         audioSource.PlayOneShot(ac_spil_strong);
+                        GameObject obj = Instantiate(tamabigprefab, atama.transform.position + new Vector3(0.6f, -0.25f, 0), Quaternion.identity);
+                        obj.GetComponent<spitController>().spitbig_initialize(pushreturnkeyframes);
                     }
 
                     ultpoint = Mathf.Min(ultpoint + pushreturnkeyframes, ultthreshold);

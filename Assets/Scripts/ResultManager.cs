@@ -24,16 +24,22 @@ public class ResultManager : MonoBehaviour
     [SerializeField]
     AudioClip Result2;
 
+    int score;
+    int enemyhitcount;
+    int alpacahitcount;
+
     // Start is called before the first frame update
     void Start()
     {
-        ScoreManager.score = 1300;
+        score = ScoreManager.score;
+        enemyhitcount = ScoreManager.enemyhitcount; //つばが敵に当たった数
+        alpacahitcount = ScoreManager.alpacahitcount; //アルパカに敵が当たった数
 
-        if (ScoreManager.score >= 1000 && ScoreManager.score<2000)
+        if (score >= 1000 && score<2000)
         {
             ResultImage2.SetActive(true);
         }
-        else if (ScoreManager.score >= 2000)
+        else if (score >= 2000)
         {
             ResultImage3.SetActive(true);
         }
@@ -43,7 +49,7 @@ public class ResultManager : MonoBehaviour
         }
         fade.FadeOut(0.5f);
         //3秒かけてスコアを加算していく。
-        StartCoroutine(ScoreAnimation(0f,(float)ScoreManager.score, 4f));
+        StartCoroutine(ScoreAnimation(0f,(float)score, 4f));
         audioSource.PlayOneShot(Result1);
         StartCoroutine(CheckAudio(audioSource, () => {
             audioSource.PlayOneShot(Result2);

@@ -6,7 +6,9 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    static public int score = 0;
+    public static int score { get; private set; }
+    public static int enemyhitcount { get; private set; }
+    public static int alpacahitcount { get; private set; }
     const int addnum = 100;
     const int substractnum = 1000;
     static float screenwidth;
@@ -20,6 +22,7 @@ public class ScoreManager : MonoBehaviour
     {
         screenwidth = Utility.getScreenWidth();
         score = 0;
+        enemyhitcount = 0;
     }
 
     // Update is called once per frame
@@ -30,14 +33,38 @@ public class ScoreManager : MonoBehaviour
 
     public void AddScore(Vector3 pos)
     {
-        score += (int)(addnum * (Utility.getScreenWidth() / 2 + pos.x));
-        text.text = score.ToString();
+        if (TimeManager.seconds > 0)
+        {
+            score += (int)(addnum * (Utility.getScreenWidth() / 2 + pos.x));
+            text.text = score.ToString();
+        }
     }
 
     public void SubstractScore()
     {
-        score = Mathf.Max(score - substractnum, 0);
-        text.text = score.ToString();
+        if (TimeManager.seconds > 0)
+        {
+            score = Mathf.Max(score - substractnum, 0);
+            text.text = score.ToString();
+        }
     }
 
+    public void SubstractScore(int _substractnum)
+    {
+        if (TimeManager.seconds > 0)
+        {
+            score = Mathf.Max(score - _substractnum, 0);
+            text.text = score.ToString();
+        }
+    }
+
+    public void Addenemyhitcount()
+    {
+        enemyhitcount++;
+    }
+
+    public void Addalpacahitcount()
+    {
+        alpacahitcount++;
+    }
 }

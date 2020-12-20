@@ -6,6 +6,8 @@ public class backgroundManger : MonoBehaviour
 {
     [SerializeField]
     GameObject backprefab = default;
+    [SerializeField]
+    GameObject cloudprefab = default;
 
     List<GameObject> backlist = new List<GameObject>();
 

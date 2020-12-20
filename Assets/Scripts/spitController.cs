@@ -7,6 +7,7 @@ public class spitController : MonoBehaviour
     const float spitspeed = 0.5f;
     float gravity;
     const float gravitydefault = 0.05f;
+    bool isbigspit;
     Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -29,11 +30,25 @@ public class spitController : MonoBehaviour
         rb.velocity = new Vector2(spitspeed * frame, 0);
         gravity = gravitydefault;
         gravity /= frame;
+
+        isbigspit = false;
+    }
+
+    public void spitbig_initialize(float frame)
+    {
+        frame += 1f;
+        frame /= 2f;
+        rb = this.GetComponent<Rigidbody2D>();
+        rb.velocity = new Vector2(spitspeed * frame, 0);
+        gravity = gravitydefault;
+        gravity /= frame;
+
+        isbigspit = true;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "teki")
+        if (collision.gameObject.tag == "teki" && !isbigspit)
         {
             Destroy(this.gameObject);
         }
