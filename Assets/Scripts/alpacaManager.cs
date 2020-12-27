@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//数字を連続的に変更させる。
+//https://yanpen.net/unity/countup_score_animation/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,6 +38,10 @@ public class alpacaManager : MonoBehaviour
 
     public static float ultpoint;
     public const float ultthreshold = 500f;
+
+    public static float TargetUltpoint;
+    public static float RecentUltpoint;
+    public static float UpdateUltpoint;
 
     //音
     [SerializeField]
@@ -155,8 +162,11 @@ public class alpacaManager : MonoBehaviour
                         GameObject obj = Instantiate(tamabigprefab, atama.transform.position + new Vector3(0.6f, -0.25f, 0), Quaternion.identity);
                         obj.GetComponent<spitController>().spitbig_initialize(pushreturnkeyframes);
                     }
-
+                    RecentUltpoint = ultpoint;
                     ultpoint = Mathf.Min(ultpoint + pushreturnkeyframes, ultthreshold);
+                    TargetUltpoint = ultpoint;
+
+                    StartCoroutine(ScoreAnimation(RecentUltpoint, TargetUltpoint, 0.3f));
 
                     pushreturnkeyframes = 0f;
                     spilframe = 0f;
@@ -168,6 +178,7 @@ public class alpacaManager : MonoBehaviour
             {
                 if (ultpoint >= ultthreshold)
                 {
+                    StartCoroutine(ScoreAnimation(ultpoint, 0, 0.3f));
                     ultpoint = 0;
                     isulting = true;
                     StartCoroutine(ult());
@@ -264,6 +275,29 @@ public class alpacaManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private IEnumerator ScoreAnimation(float startScore, float endScore, float duration)
+    {
+        // 開始時間
+        float startTime = Time.time;
+
+        // 終了時間
+        float endTime = startTime + duration;
+
+        do
+        {
+            // 現在の時間の割合
+            float timeRate = (Time.time - startTime) / duration;
+
+            // 数値を更新
+            UpdateUltpoint = (float)((endScore - startScore) * timeRate + startScore);
+
+            // 1フレーム待つ
+            yield return null;
+
+        } while (Time.time < endTime);
+        
     }
 
 }

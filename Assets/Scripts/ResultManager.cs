@@ -6,6 +6,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
 using System;
+using UnityEngine.SceneManagement;
 
 public class ResultManager : MonoBehaviour
 {
@@ -16,14 +17,20 @@ public class ResultManager : MonoBehaviour
     private TextMeshProUGUI Beat;
     [SerializeField]
     private TextMeshProUGUI Bump;
+    [SerializeField]
+    private TextMeshProUGUI Description;
     public GameObject ScoreCanvas;
     public GameObject ResultImage1;
     public GameObject ResultImage2;
     public GameObject ResultImage3;
     public Fade fade;
+    public GameObject ResultBGM;
 
     [SerializeField]
     AudioSource audioSource;
+
+    [SerializeField]
+    AudioClip transition;
 
     [SerializeField]
     AudioClip Result1;
@@ -70,9 +77,11 @@ public class ResultManager : MonoBehaviour
                 {
                     Score.gameObject.SetActive(true);
                     audioSource.PlayOneShot(Result2);
-                    StartCoroutine(DelayMethod(0.4f, () =>
+                    StartCoroutine(DelayMethod(1f, () =>
                     {
                         DisplayedResult = true;
+                        Description.gameObject.SetActive(true);
+                        ResultBGM.SetActive(true);
                     }));
                 }));
 
@@ -108,7 +117,7 @@ public class ResultManager : MonoBehaviour
     void Update()
     {
         if (DisplayedResult = true) {
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.H))
             {
                 if (ScoreCanvas.activeSelf)
                 {
@@ -118,6 +127,24 @@ public class ResultManager : MonoBehaviour
                 {
                     ScoreCanvas.SetActive(true);
                 }
+
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                audioSource.PlayOneShot(transition);
+                fade.FadeIn(0.5f, () =>
+                {
+                    SceneManager.LoadScene("Main");
+                });
+
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                audioSource.PlayOneShot(transition);
+                fade.FadeIn(0.5f, () =>
+                {
+                    SceneManager.LoadScene("Title");
+                });
 
             }
         }
