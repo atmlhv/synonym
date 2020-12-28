@@ -51,6 +51,10 @@ public class ResultManager : MonoBehaviour
         enemyhitcount = ScoreManager.enemyhitcount; //つばが敵に当たった数
         alpacahitcount = ScoreManager.alpacahitcount; //アルパカに敵が当たった数
 
+        Score.text = "Score:" + score.ToString();
+        Beat.text = "Beat:" + enemyhitcount.ToString();
+        Bump.text = "Bump" + alpacahitcount.ToString();
+
         if (score >= 1000 && score<2000)
         {
             ResultImage2.SetActive(true);
