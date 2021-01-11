@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ultManager : MonoBehaviour
 {
     //仮
     [SerializeField]
-    Text text = default;
+    GameObject text = default;
 
     [SerializeField]
     Image CircleBar;
@@ -33,7 +34,7 @@ public class ultManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = alpacaManager.ultpoint.ToString() + " / " + alpacaManager.ultthreshold.ToString();
+        text.GetComponent<TextMeshProUGUI>().text = alpacaManager.ultpoint.ToString() + " / " + alpacaManager.ultthreshold.ToString();
         CircleBar.fillAmount = alpacaManager.UpdateUltpoint / 500;
         Bar.fillAmount = alpacaManager.UpdateUltpoint / 500;
         if(!IsCharged && alpacaManager.ultpoint == 500)

@@ -21,6 +21,9 @@ public class alpacaManager : MonoBehaviour
     Vector3 defaultpos_atama;
     Vector3 defaultpos_kubi;
 
+    SpriteRenderer atama_sr;
+    bool ischarged;
+
     const float kubiupspeed = 0.01f;
     const float kubidownspeed = 0.01f;
 
@@ -65,6 +68,8 @@ public class alpacaManager : MonoBehaviour
     AudioClip ac_ult_doing;
     [SerializeField]
     AudioClip ac_ult_done;
+    [SerializeField]
+    AudioClip ac_spil_charged;
 
     //敵ヒット用
     public void enemyspil_se()
@@ -82,10 +87,12 @@ public class alpacaManager : MonoBehaviour
         pushreturnkeyframes = 0f;
         spilframe = 0f;
         isulting = false;
+        ischarged = false;
         ultpoint = 0f;
 
         defaultpos_atama = atama.transform.position;
         defaultpos_kubi = kubinearhead.transform.position;
+        atama_sr = atama.GetComponent<SpriteRenderer>();
 
         kubis.Add(kubinearhead);
 
@@ -150,7 +157,7 @@ public class alpacaManager : MonoBehaviour
             {
                 if (spilframe >= spilthreshold)
                 {
-                    if (pushreturnkeyframes < pushreturnkeyframesthreshold)
+                    if (!ischarged)
                     {
                         audioSource.PlayOneShot(ac_spil_weak);
                         GameObject obj = Instantiate(tamaprefab, atama.transform.position + new Vector3(0.6f, -0.25f, 0), Quaternion.identity);
@@ -158,6 +165,8 @@ public class alpacaManager : MonoBehaviour
                     }
                     else
                     {
+                        ischarged = false;
+                        atama_sr.color = new Color(1, 1, 1);
                         audioSource.PlayOneShot(ac_spil_strong);
                         GameObject obj = Instantiate(tamabigprefab, atama.transform.position + new Vector3(0.6f, -0.25f, 0), Quaternion.identity);
                         obj.GetComponent<spitController>().spitbig_initialize(pushreturnkeyframes);
@@ -183,6 +192,14 @@ public class alpacaManager : MonoBehaviour
                     isulting = true;
                     StartCoroutine(ult());
                 }
+            }
+
+            //溜めたつばを出せるようになったタイミングで1回だけ呼ぶ
+            if (pushreturnkeyframes >= pushreturnkeyframesthreshold && !ischarged)
+            {
+                audioSource.PlayOneShot(ac_spil_charged);
+                atama_sr.color = new Color(1,0,0);
+                ischarged = true;
             }
         }
     }

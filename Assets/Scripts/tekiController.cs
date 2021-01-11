@@ -11,6 +11,9 @@ public class tekiController : MonoBehaviour
     bool island;
     Rigidbody2D rb;
 
+    [SerializeField]
+    GameObject enemy_explosion = default;
+
     //manager用
     ScoreManager sm;
     alpacaManager am;
@@ -81,24 +84,21 @@ public class tekiController : MonoBehaviour
     {
         if (collision.gameObject.tag == "tama")
         {
-            am.enemyspil_se();
-            enemyManager.nowtekinum--;
+            tekidestroyed();
             sm.AddScore(transform.position);
             sm.Addenemyhitcount();
             Destroy(this.gameObject);
         }
         else if (!alpacaManager.isulting && collision.gameObject.tag == "kubi")
         {
-            am.enemytouch_se();
-            enemyManager.nowtekinum--;
+            tekidestroyed();
             sm.SubstractScore();
             sm.Addalpacahitcount();
             Destroy(this.gameObject);
         }
         else if (alpacaManager.isulting && collision.gameObject.tag == "kubi")
         {
-            am.enemytouch_se();
-            enemyManager.nowtekinum--;
+            tekidestroyed();
             sm.AddScore(transform.position);
             Destroy(this.gameObject);
         }
@@ -108,11 +108,18 @@ public class tekiController : MonoBehaviour
     {
         if (collision.gameObject.tag == "tama_big")
         {
-            am.enemyspil_se();
-            enemyManager.nowtekinum--;
+            tekidestroyed();
             sm.AddScore(transform.position);
             sm.Addenemyhitcount();
             Destroy(this.gameObject);
         }
+    }
+
+    void tekidestroyed()
+    {
+        GameObject explosionobj = Instantiate(enemy_explosion, this.transform.position, Quaternion.identity);
+        explosionobj.GetComponent<ExplosionController>().explosioninitialize();
+        am.enemytouch_se();
+        enemyManager.nowtekinum--;
     }
 }
